@@ -11,12 +11,9 @@ English vectors
 english_embeddings = KeyedVectors.\
     load_word2vec_format('../input/googlenewsvectorsnegative300/GoogleNews-vectors-negative300.bin', binary=True)
 
-
 """
 Spanish Vectors
 """
-
-
 spanish_embeddings = {}
 
 with open('../input/pretrained-word-vectors-for-spanish/SBW-vectors-300-min5.txt') as f:
