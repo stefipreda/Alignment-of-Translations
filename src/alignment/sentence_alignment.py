@@ -27,6 +27,9 @@ def get_word_correspondance_align(s1, s2, threshold=0.3):
         for w2 in words2:
             if w2 not in taken:
                 score = multilingual_cos_sim(w1, w2)
+                """
+                Or use: 
+                """
                 if score > max_score:
                     max_score = score
                     max_word = w2

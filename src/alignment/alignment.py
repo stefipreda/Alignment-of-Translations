@@ -11,7 +11,6 @@ import random
 
 import nltk
 
-
 def alignment_score(x, y, f=None):
     """Compute the alignment score between two set of points.
   ​

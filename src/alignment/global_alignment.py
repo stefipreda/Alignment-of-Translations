@@ -19,8 +19,15 @@ encoder_en = SentenceTransformer('stsb-distilbert-base')
 encoder_es = SentenceTransformer('hiiamsid/sentence_similarity_spanish_es')
 
 
-
 def get_global_alignment(sentences1, sentences2):
+    # Multilingual embeddings
+    en_embeddings = encoder.encode(sentences1)
+    es_embeddings = encoder.encode(sentences2)
+
+    # Alternatively, use different embeddings separately trained
+    # (e.g. encoder_en / encoder_es)
+    """
     en_embeddings = encoder_en.encode(sentences1)
     es_embeddings = encoder_es.encode(sentences2)
+    """
     return alignment_score(en_embeddings, es_embeddings)
