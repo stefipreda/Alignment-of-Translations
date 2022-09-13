@@ -4,7 +4,8 @@ import numpy as np
 from scipy.stats import spearmanr
 from nltk.tokenize import word_tokenize
 import random
-
+from src.util.word_embeddings import get_emb_en, get_emb_es
+from src.util.word_embeddings import get_embs_en, get_embs_es
 from src.alignment.alignment import alignment_score
 
 encoder = SentenceTransformer('distiluse-base-multilingual-cased-v1')
@@ -24,6 +25,23 @@ def read_anchor_words(file='../../data/en_es_dictionary.txt'):
     return en_words, es_words
 
 
+def word_alignment(w_en, w_es):
+    """
+    Args:
+        w_en: word in source language
+        w_es: word in target language
+
+    Returns:
+
+    """
+    en_emb = get_emb_en(w_en)
+    es_emb = get_emb_es(w_es)
+    en_embs = np.append(anchors_en_embs, en_emb, axis=0)
+    es_embs = np.append(anchors_es_embs, es_emb, axis=0)
+    score = alignment_score(en_embs, es_embs)
+    return score
+
+
 def closest_word(word):
     w_emb = encoder.encode(word)
     max_sim = 0
@@ -36,32 +54,20 @@ def closest_word(word):
     return word
 
 
-def multilingual_cos_sim(w_en, w_es):
-    en_emb = encoder.encode(w_en)
-    es_emb = encoder.encode(w_es)
-    return cos_sim(en_emb, es_emb)
-
-
-def word_alignment(w_en, w_es):
-    en_emb = encoder.encode(w_en)
-    es_emb = encoder.encode(w_es)
-    en_emb = np.expand_dims(en_emb, axis=0)
-    es_emb = np.expand_dims(es_emb, axis=0)
-    en_embs = np.append(anchors_en_embs, en_emb, axis=0)
-    es_embs = np.append(anchors_es_embs, es_emb, axis=0)
-    score = alignment_score(en_embs, es_embs)
-    return score
-
-
 anchors_en, anchors_es = read_anchor_words()
 
 #train_indices = random.sample(range(0, len(anchors_en)), 100)
 train_indices = range(300, 400)
 train_words_en = [anchors_en[i] for i in train_indices]
 train_words_es = [anchors_es[i] for i in train_indices]
-anchors_en_embs = encoder.encode(train_words_en)
-anchors_es_embs = encoder.encode(train_words_es)
+anchors_en_embs = get_embs_en(train_words_en)
+anchors_es_embs = get_embs_es(train_words_es)
 
+anchors_alignment = alignment_score(anchors_en_embs, anchors_es_embs)
+
+"""
+Testing 
+"""
 
 """
 for round in range(5):

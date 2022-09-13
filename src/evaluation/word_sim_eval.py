@@ -10,8 +10,8 @@ words_en = df_sim['ENG']
 words_es = df_sim['SPA']
 sim_scores = df_sim['score']
 
-cos_sim_scores = [multilingual_cos_sim(words_en[i], words_es[i]) for i in range(100)]
-align_scores = [word_alignment(words_en[i], words_es[i]) for i in range(100)]
+cos_sim_scores = [multilingual_cos_sim(words_en[i], words_es[i]) for i in range(1000)]
+align_scores = [word_alignment(words_en[i], words_es[i]) for i in range(1000)]
 
 print(SRank(align_scores, list(sim_scores[:100])))
 print(SRank(cos_sim_scores, list(sim_scores[100])))

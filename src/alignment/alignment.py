@@ -1,15 +1,7 @@
-from datasets import load_dataset
-from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity as cos_sim
 import numpy as np
 from scipy.stats import spearmanr
-from numpy import dot
-from numpy.linalg import norm
-from nltk.tokenize import word_tokenize, sent_tokenize
-from tqdm import tqdm
-import random
 
-import nltk
 
 def alignment_score(x, y, f=None):
     """Compute the alignment score between two set of points.

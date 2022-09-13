@@ -1,8 +1,6 @@
 import pandas as pd
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer, PorterStemmer
-from sentence_transformers import SentenceTransformer
-from sentence_transformers.util import cos_sim
 
 lemmatizer = WordNetLemmatizer()
 stemmer = PorterStemmer()
@@ -10,6 +8,7 @@ conc_scores = {}
 
 # encoder = SentenceTransformer('distiluse-base-multilingual-cased-v1')
 
+# Read abstract scores from csv file
 df = pd.read_csv("../../data/abstract_scores.csv")
 df_scores = df[['Word', 'Conc.M']]
 df_scores.dropna()
@@ -23,6 +22,13 @@ for _, row in df_scores.iterrows():
 
 
 def concreteness(sentence):
+    """
+    Args:
+        sentence:
+
+    Returns:
+        a concreteness rating between 0 to 5
+    """
     words = word_tokenize(sentence)
     words_found = []
     for word in words:

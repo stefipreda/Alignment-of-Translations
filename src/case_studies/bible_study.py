@@ -77,8 +77,8 @@ if __name__ == '__main__':
                 """
                 Global alignment - first 200 paragraphs
                 """
-                en_embeddings = encoder.encode(en_sentences[:200])
-                translated_embeddings = encoder.encode(translated_sentences[:200])
+                en_embeddings = encoder.encode(en_sentences[:500])
+                translated_embeddings = encoder.encode(translated_sentences[:500])
                 score = alignment_score(en_embeddings, translated_embeddings)
                 print(score)
                 align_scores.append(score)

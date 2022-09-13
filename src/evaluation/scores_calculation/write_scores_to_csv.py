@@ -18,11 +18,11 @@ if __name__ == '__main__':
     """
     first_book_len = 4495  # 500
     sampled_indices = random.sample(range(0, first_book_len), 500)
-    # en_sentences = [translations[i]['en'] for i in range(1, first_book_len)]
-    # es_sentences = [translations[i]['es'] for i in range(1, first_book_len)]
+    en_sentences = [translations[i]['en'] for i in range(1, first_book_len)]
+    es_sentences = [translations[i]['es'] for i in range(1, first_book_len)]
 
-    # score = get_global_alignment(en_sentences, es_sentences)
-    # print("Global alignment Jane Austen : {}".format(score))
+    score = get_global_alignment(en_sentences, es_sentences)
+    print("Global alignment Jane Austen : {}".format(score))
 
     # Global alignment of Jane Austen
 
@@ -44,8 +44,8 @@ if __name__ == '__main__':
     en_kafka_sentences = [translations[i]['en'] for i in range(kafka_begin, kafka_end)]
     es_kafka_sentences = [translations[i]['es'] for i in range(kafka_begin, kafka_end)]
 
-    # score = get_global_alignment(en_kafka_sentences, es_kafka_sentences)
-    # print("Global alignment Kafka : {}".format(score))
+    score = get_global_alignment(en_kafka_sentences, es_kafka_sentences)
+    print("Global alignment Kafka : {}".format(score))
 
     """
     Load Edgar Allan Poe : The Fall of the House of Usher
@@ -93,13 +93,12 @@ if __name__ == '__main__':
     score = get_global_alignment(en_sentences, es_sentences)
     print("Global alignment random books : {}".format(score))
 
-    """
+
     for i in range(len(en_sentences)):
         if "Source:" in en_sentences[i]:
             print(i)
             print(en_sentences[i + 1])
-    """
-    """
+
     scores = []
     with open("medical_scores.txt", 'w') as f:
         for i in tqdm(range(len(en_sentences))):
@@ -115,4 +114,3 @@ if __name__ == '__main__':
             f.write("\n")
 
     print(sum(scores)/len(scores))
-    """

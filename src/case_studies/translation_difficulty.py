@@ -1,28 +1,41 @@
 from nltk.tokenize import word_tokenize
 from nltk.corpus import wordnet as wn
 import spacy
-import pandas as pd
 
+# Import spacy pipeline
 nlp = spacy.load('en_core_web_sm')
 
 
 def length(sentence):
     """
-    :param sentence:
-    :return: number of words
+    Args:
+        sentence:
+    Returns:
+        number of words
     """
     words = word_tokenize(sentence)
     return len(words)
 
 
 def word_polysemy(word):
+    """
+    Args:
+        word:
+
+    Returns:
+        number of senses
+    """
     return len(wn.synsets(word))
 
 
 def DP(sentence, verbose=True):
     """
-    :param sentence:
-    :return: degree of polysemy
+    Args:
+        sentence:
+        verbose: True for printing polysemy of each word
+
+    Returns:
+        degree of polysemy
     """
     words = word_tokenize(sentence)
     if verbose:
@@ -34,8 +47,11 @@ def DP(sentence, verbose=True):
 
 def SC(sentence):
     """
-    :param sentence:
-    :return: structural complexity
+    Args:
+        sentence:
+
+    Returns:
+        structural complexity of sentence
     """
     doc = nlp(sentence)
     dep_lengths = []
@@ -51,5 +67,6 @@ def SC(sentence):
 
 
 if __name__ == '__main__':
-    #df = pd.read_csv("td_en_es.csv")
+
     print(DP("The man deposited the money in the bank"))
+    print(SC("The plants you gave me last time you saw me are growing beautifully"))
